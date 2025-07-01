@@ -9,7 +9,9 @@
 1. Node
 2. Express
 
-### Node.js
+### Tech Stack
+
+#### Node.js
 
 Node.js is open-source (?), cross-platform, backend JavaScript runtime environment (RTE) [An RTE provides a program all of the necessary hardware and software it needs to run independently, interfacing with the OS, managing resources like memory and variables, handling I/O, and ensuring proper termination] that executes JavaScript outside of a web browser.
 
@@ -76,3 +78,17 @@ Morgan is an HTTP request logger that logs detailed information about incoming H
 <b>Cors</b>
 
 Stands for Cross-Origin Resource Sharing. It relaxes the browser's default Same-Origin Policy while still providing protection from cross-site security attacks. It allows different components of an application hosted on seperate domains to communicate seemlessly, allow web apps to securly utilize APIs from external sources, and to create one's own environment and define certain port uses within the server (or so it seems).
+  
+    
+      
+
+### Other Resources  
+  
+<b>ArcJet</b>
+
+Provides proction in the form of Bot detection. Rate limiting. Email validation. Attack protection. Data redaction. A developer-first approach to security.  
+  
+
+<b>Neon</b>
+
+Used to create and serve the database?
