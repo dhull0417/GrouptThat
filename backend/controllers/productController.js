@@ -24,13 +24,16 @@ export const createProduct = async (req, res) => {
     const {name, price, image} = req.body;
 
     if(!name || !price || !image) {
-        return res.status(400).json ({success:false, message: "All fields are required"});
+        return res.status(400).json ({
+            success: false,
+            message: "All fields are required"
+            });
     }
 
     try {
         // Place variables in the same order as defined above
         const newProduct = await sql `
-            NSERT INTO products (name, price, image)
+            INSERT INTO products (name, price, image)
             VALUES (${name}, ${price}, ${image})
             RETURNING * 
         `;
@@ -39,7 +42,7 @@ export const createProduct = async (req, res) => {
         res.status(201).json({success: true, data: newProduct[0]});
 
     } catch (error) {
-        console.log("Error in createProduct function", error);
+        console.log("Error in createProduct function >", error);
         res.status(500).json({success:false, message: "internal server error"});
     }
 }
@@ -93,7 +96,7 @@ export const deleteProduct = async (req, res) => {
             WHERE id=${id}
             RETURNING *
         `;
-        
+
         if (deletedProduct.length === 0) {
             return res.status(404).json ({
                 success: false,
