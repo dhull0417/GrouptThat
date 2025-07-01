@@ -25,6 +25,7 @@ app.use(morgan("dev")) //log the request
 // api.get() does not work here for some reason
 app.use("/api/products", productRoutes)
 
+// initialize a database if not already created
 async function initDB() {
   try{
     await sql`
