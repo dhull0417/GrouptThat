@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import postgres from "postgres";
 
 // Must use .js at end since type: "module" in package.json
-import productRoutes from "./routes/productRoutes.js"
+import productRoutes from "./routes/productRoutes.js";
 import { sql } from "./config/db.js";
 
 dotenv.config();
@@ -22,10 +22,48 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan("dev")) //log the request
 
-// api.get() does not work here for some reason
+// apply arcjet rate limit to all routes
+
+app.use(async (req, res, next) => {
+  try {
+    const decision = await aj.protect(req, {
+      requested : 1 // specifies that each request consumes 1 token
+    });
+
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
+        res.status(429).json({
+          error: "Too many requests"
+        });
+      } else if (decision.reason.isBot()) {
+        res.status(403).json ({
+          error: "Bot access denied"
+        });
+      } else {
+        res.status(403).json({error: "Forbidden"});
+        }
+        return;
+      }
+
+      // check for spoofed bot (bot trying to appear like it is not a bot)
+      if(decision.results.some((result) => result.reason.isBot() && result.reason.isSpoofed())) {
+        res.status(403).json ({ error: "Spoofed bot detected"});
+        return;
+      }
+
+      // Below means 'call the next function', which is to hit any of the routes they wish
+      next();
+    } catch (error) {
+    console.log("Arcjet Error", error);
+    next(error);
+  }
+});
+
+// api.get() does not work here for some reason; probably because you are setting the root route for other routes
 app.use("/api/products", productRoutes)
 
 // initialize a database if not already created
+// For GroupThat, SERIAL will be a long, unique generated value
 async function initDB() {
   try{
     await sql`

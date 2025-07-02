@@ -63,6 +63,8 @@ The response is then sent back to the client
 
 ### Modules
 
+#### BACKEND
+
 <b>Helmet</b>
 
 Security middleware that configures various HTTP headers.
@@ -78,8 +80,28 @@ Morgan is an HTTP request logger that logs detailed information about incoming H
 <b>Cors</b>
 
 Stands for Cross-Origin Resource Sharing. It relaxes the browser's default Same-Origin Policy while still providing protection from cross-site security attacks. It allows different components of an application hosted on seperate domains to communicate seemlessly, allow web apps to securly utilize APIs from external sources, and to create one's own environment and define certain port uses within the server (or so it seems).
+
+#### FRONTEND
   
-    
+<b>react-hot-toast</b>  
+
+Notification library to show view-tiful notifications
+
+<b>react-router-dom</b>  
+
+Helps to put navigation in place for links and different pages
+  
+<b>axios</b>  
+
+Fetch data and send requests
+
+<b>zustand</b>  
+
+Used for global state
+
+<b>lucide-react</b>  
+
+Package that can be used for icons
       
 
 ### Other Resources  
